@@ -4,9 +4,34 @@ document.addEventListener("DOMContentLoaded", function () {
     const convertButton = document.getElementById("convertButton");
     const downloadButton = document.getElementById("downloadButton");
     const previewImage = document.getElementById("previewImage");
+    const addColor = document.getElementById("addColorBtn");
+    const sendColor = document.getElementById("sendColorsBtn");
+
+
 
     let uploadedImage = null; // Guardará la imagen seleccionada
     let processedImageURL = null; // URL de la imagen convertida
+
+    //FUNCION COLORES
+
+    let colorCount = 2; // Comenzamos en 2 porque ya hay dos colores iniciales
+
+    addColor.addEventListener("click", () => {
+        colorCount++; // Aumentamos el número de colores
+        const container = document.getElementById("color-container");
+    
+        const div = document.createElement("div");
+        div.classList.add("color-picker");
+        div.innerHTML = `
+            <input type="color" name="color${colorCount}" value="#0000ff">
+            <button onclick="eliminarColor(this)">❌</button>
+        `;
+        container.appendChild(div);
+    });
+    
+
+
+
 
     const fileToBase64 = (file) => {
         return new Promise((resolve, reject) => {
@@ -43,13 +68,27 @@ document.addEventListener("DOMContentLoaded", function () {
     //Evento al hacer clic en "Convertir"
     convertButton.addEventListener("click", async () => {
         if (!uploadedImage) return;
+        //Parte de los colores
+        const colores = [];
+        const colorPickers = document.querySelectorAll(".color-picker");
+    
+        colorPickers.forEach(picker => {
+            const colorInput = picker.querySelector("input[type='color']");
+            colores.push(colorInput.value);
+        });
+
+
+
         const base64String = await fileToBase64(uploadedImage);
-        console.log(base64String)
+
 
         const formData = new FormData();
         formData.append("file", base64String);
-        console.log('envio todo')
+
+        formData.append("colores", JSON.stringify(colores));
+
         const response = await fetch("http://ec2-3-70-99-38.eu-central-1.compute.amazonaws.com:5000/convert", {
+          //const response = await fetch("http://127.0.0.1:5000/convert", {
             method: "POST",
             body: formData
         });
@@ -69,10 +108,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const nombreArchivo = 'processed_image.png';
         // Hacemos una solicitud fetch al servidor para descargar el archivo
-    // URL de la ruta Flask que sirve el archivo procesado
+      // URL de la ruta Flask que sirve el archivo procesado
       const url = `http://ec2-3-70-99-38.eu-central-1.compute.amazonaws.com:5000/download?file=${encodeURIComponent(nombreArchivo)}`;
+      //const url = `http://127.0.0.1:5000/download?file=${encodeURIComponent(nombreArchivo)}`;
 
-    // Hacemos una solicitud fetch al servidor para descargar el archivo
+      // Hacemos una solicitud fetch al servidor para descargar el archivo
       fetch(url)
         .then(response => {
           if (response.ok) {
@@ -97,3 +137,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });;
   })
+
+  function eliminarColor(btn) {
+    btn.parentElement.remove(); // Elimina el color seleccionado
+}

@@ -40,6 +40,23 @@
                         <input type="file" id="fileInput" accept="image/*" style="display: none;">
                         <button class="btn btn-primary btn-lg" id="uploadButton">Seleccionar Foto</button>
 
+                        <p class="fs-4">Selecciona los colores (puedes agregar más o dejar en blanco):</p>
+    
+                        <div id="color-container">
+                            <!-- Colores iniciales -->
+                            <div class="color-picker">
+                                <input type="color" name="color1" value="#ff0000">
+                                <button onclick="eliminarColor(this)">❌</button>
+                            </div>
+                            <div class="color-picker">
+                                <input type="color" name="color2" value="#00ff00">
+                                <button onclick="eliminarColor(this)">❌</button>
+                            </div>
+                        </div>
+                    
+                        <button id="addColorBtn">➕ Añadir otro color</button>
+                        <button id="sendColorsBtn">✅ Enviar Colores</button>
+
                         <!-- Imagen cargada -->
                         <img id="previewImage" style="display:none; width: 300px; margin-top: 20px;">
 
@@ -95,6 +112,6 @@
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
+        <script defer src="js/scripts.js"></script>
     </body>
 </html>
