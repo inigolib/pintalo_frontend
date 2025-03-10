@@ -84,8 +84,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const formData = new FormData();
         formData.append("file", base64String);
+        console.log(colores)
 
         formData.append("colores", JSON.stringify(colores));
+        for (let pair of formData.entries()) {
+          console.log(pair[0] + ": " + pair[1]);
+       }
 
         const response = await fetch("http://ec2-3-70-99-38.eu-central-1.compute.amazonaws.com:5000/convert", {
           //const response = await fetch("http://127.0.0.1:5000/convert", {
