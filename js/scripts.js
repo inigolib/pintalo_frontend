@@ -16,6 +16,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let colorCount = 2; // Comenzamos en 2 porque ya hay dos colores iniciales
 
+    let path = 'https://127.0.0.1:443/'
+    //let path= 'http://ec2-3-70-99-38.eu-central-1.compute.amazonaws.com:5000/'
+
     addColor.addEventListener("click", () => {
         colorCount++; // Aumentamos el número de colores
         const container = document.getElementById("color-container");
@@ -91,8 +94,8 @@ document.addEventListener("DOMContentLoaded", function () {
           console.log(pair[0] + ": " + pair[1]);
        }
 
-        const response = await fetch("https://ec2-3-70-99-38.eu-central-1.compute.amazonaws.com:443/convert", {
-          //const response = await fetch("http://127.0.0.1:5000/convert", {
+       
+          const response = await fetch(path+"convert", {
             method: "POST",
             body: formData
         });
@@ -113,8 +116,8 @@ document.addEventListener("DOMContentLoaded", function () {
       const nombreArchivo = 'processed_image.png';
         // Hacemos una solicitud fetch al servidor para descargar el archivo
       // URL de la ruta Flask que sirve el archivo procesado
-      const url = `https://ec2-3-70-99-38.eu-central-1.compute.amazonaws.com:443/download?file=${encodeURIComponent(nombreArchivo)}`;
-      //const url = `http://127.0.0.1:5000/download?file=${encodeURIComponent(nombreArchivo)}`;
+      //const url = `https://ec2-3-70-99-38.eu-central-1.compute.amazonaws.com:443/download?file=${encodeURIComponent(nombreArchivo)}`;
+      const url = `${path}download?file=${encodeURIComponent(nombreArchivo)}`;
 
       // Hacemos una solicitud fetch al servidor para descargar el archivo
       fetch(url)
