@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let colorCount = 2; // Comenzamos en 2 porque ya hay dos colores iniciales
 
     //let path = 'https://127.0.0.1:443/'
-    let path= 'http://ec2-3-70-99-38.eu-central-1.compute.amazonaws.com:5000/'
+    let path= 'https://ec2-3-70-99-38.eu-central-1.compute.amazonaws.com:443/'
 
     addColor.addEventListener("click", () => {
         colorCount++; // Aumentamos el número de colores
