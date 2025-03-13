@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const downloadButton = document.getElementById("downloadButton");
     const previewImage = document.getElementById("previewImage");
     const addColor = document.getElementById("addColorBtn");
-    const sendColor = document.getElementById("sendColorsBtn");
 
 
 
@@ -16,8 +15,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let colorCount = 2; // Comenzamos en 2 porque ya hay dos colores iniciales
 
-    //let path = 'https://127.0.0.1:443/'
-    let path= 'https://ec2-3-70-99-38.eu-central-1.compute.amazonaws.com:443/'
+    let path = 'https://127.0.0.1:443/'
+    //let path= 'https://ec2-3-70-99-38.eu-central-1.compute.amazonaws.com:443/'
 
     addColor.addEventListener("click", () => {
         colorCount++; // Aumentamos el número de colores
@@ -116,7 +115,6 @@ document.addEventListener("DOMContentLoaded", function () {
       const nombreArchivo = 'processed_image.png';
         // Hacemos una solicitud fetch al servidor para descargar el archivo
       // URL de la ruta Flask que sirve el archivo procesado
-      //const url = `https://ec2-3-70-99-38.eu-central-1.compute.amazonaws.com:443/download?file=${encodeURIComponent(nombreArchivo)}`;
       const url = `${path}download?file=${encodeURIComponent(nombreArchivo)}`;
 
       // Hacemos una solicitud fetch al servidor para descargar el archivo
